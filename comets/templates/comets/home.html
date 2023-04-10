@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="flex flex-column items-center">
+    <div class="self-center home-question">
+
+        <h1>Is the comet coming ?</h1>
+
+        {% if the_end is True %}
+        <p class="the-end">Yes, good luck !</p>
+        {% else %}
+        <p class="no-end">No, not today.</p>
+        {% endif %}
+
+        <a href="{% url 'comets:lost' %}">Lost</a>
+
+    </div>
+
+    <div class="self-center investigate-panel">
+
+        <h4>Investigate</h4>
+
+        <form action="{% url 'comets:list' %}" method="get">
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit" value="Load">
+        </form>
+
+    </div>
+</div>
+{% endblock content %}

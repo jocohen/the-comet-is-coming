@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="flex flex-collumn items-center">
+{% if the_end %}
+<p>Go outside and look at it</p>
+{% else %}
+<p>No sadly, it will not be today that something in your life.</p>
+{% endif %}
+</div>
+
+{% endblock content %}
