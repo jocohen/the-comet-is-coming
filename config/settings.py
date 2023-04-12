@@ -62,7 +62,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = "the-comet-is-coming.urls"
+ROOT_URLCONF = "config.urls"
 
 TEMPLATES = [
     {
@@ -80,7 +80,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "the-comet-is-coming.wsgi.application"
+WSGI_APPLICATION = "config.wsgi.application"
 
 
 # Database
