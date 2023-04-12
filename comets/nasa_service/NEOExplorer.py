@@ -120,7 +120,7 @@ class NEOExplorer(AbstractExplorer):
         for raw in data:
             mapped_data.append(
                 CometCloseApproachData(
-                    datetime=self.convert_epoch_to_datetime(
+                    time=self.convert_epoch_to_datetime(
                         get(raw, int, "epoch_date_close_approach")
                     ),
                     velocity=get(raw, str, "relative_velocity", "kilometers_per_second"),
