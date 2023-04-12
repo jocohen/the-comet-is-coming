@@ -2,7 +2,7 @@ from typing import Dict, Any
 
 import requests
 
-from .schemas import NasaServiceError
+from comets.nasa_service.schemas import NasaServiceError
 
 
 class NasaAPIAccess:
@@ -27,7 +27,7 @@ class NasaAPIAccess:
         self.service = api_service
 
 
-    def get(self, endpoint: str, payload: Dict) -> Any:
+    def get(self, endpoint: str, payload: Dict = {}) -> Any:
         """
         Get the nasa api on the final endpoint specified with the according
         payload
@@ -47,9 +47,9 @@ class NasaAPIAccess:
         try:
             response.raise_for_status()
             data = response.json()
-        except requests.HTTPError:
+        except requests.HTTPError as exc:
             message = response.status_code
-            raise NasaServiceError(message)
+            raise NasaServiceError(str(message) + "|||||" + str(exc))
         except requests.JSONDecodeError:
             raise NasaServiceError("Invalid json received")
         return data

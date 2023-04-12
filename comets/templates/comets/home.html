@@ -21,8 +21,7 @@
         <h4>Investigate</h4>
 
         <form action="{% url 'comets:list' %}" method="get">
-            {% csrf_token %}
-            {{ form }}
+            {{ search_form }}
             <input type="submit" value="Load">
         </form>
 

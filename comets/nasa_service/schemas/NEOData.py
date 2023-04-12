@@ -3,17 +3,36 @@ from datetime import datetime
 
 
 class CometCloseApproachData(NamedTuple):
-    datetime: datetime
+    """When the comets is in close approach of the earth
+
+    Attributes:
+        time (datetime): when it happened
+        velocity (str): in km/s
+        distance (str): in km
+        orbiting_body (str): which celestials it's in orbit
+    """
+    time: datetime
     velocity: str
     distance: str
     orbiting_body: str
 
 
 class NEOCometDetail(NamedTuple):
-    id: str
+    """Based on NEO service, data for the comet
+
+    Attributes:
+        id (int): NEO reference id
+        name (str): name of comet
+        diameter_min (float): approx min diameter in meters
+        diameter_max (float): approx max diameter in meters
+        is_hazardous (bool): if comet has hazardous materials
+        is_sentry (bool): if it will hit earth
+        close_approaches (List[CometCloseApproachData]): all the times the comet approached Earth
+    """
+    id: int
     name: str
     diameter_min: float
     diameter_max: float
     is_hazardous: bool
     is_sentry: bool
-    close_approachs: List[CometCloseApproachData]
+    close_approaches: List[CometCloseApproachData]

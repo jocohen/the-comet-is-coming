@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div>
+    <p>{{ comet.name }}</p>
+    <p>{{ comet.is_sentry }}</p>
+    <ul>
+        {% for approach in last_approaches %}
+        <li>{{ approach.velocity }} {{ approach.orbiting_body }} {{ approach.distance }} {{ approach.time|date }}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock content %}
