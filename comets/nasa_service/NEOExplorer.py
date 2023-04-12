@@ -2,8 +2,8 @@ import datetime
 import json
 from typing import List, Any
 
-from .AbstractExplorer import AbstractExplorer
-from .schemas import NEOCometDetail, CometCloseApproachData, NasaServiceError
+from comets.nasa_service.AbstractExplorer import AbstractExplorer
+from comets.nasa_service.schemas import NEOCometDetail, CometCloseApproachData, NasaServiceError
 
 
 class NEOExplorer(AbstractExplorer):
@@ -88,7 +88,7 @@ class NEOExplorer(AbstractExplorer):
         """
         try:
             comet = NEOCometDetail(
-                id=get(raw, str, "neo_reference_id"),
+                id=int(get(raw, str, "neo_reference_id")),
                 name=get(raw, str, "name"),
                 diameter_min=get(
                     raw, float, "estimated_diameter", "meters", "estimated_diameter_min"
@@ -98,7 +98,7 @@ class NEOExplorer(AbstractExplorer):
                 ),
                 is_hazardous=get(raw, bool, "is_potentially_hazardous_asteroid"),
                 is_sentry=get(raw, bool, "is_sentry_object"),
-                close_approachs=self.map_data_to_close_approach(get(raw, list, "close_approach_data"))
+                close_approaches=self.map_data_to_close_approach(get(raw, list, "close_approach_data"))
             )
     
             return comet
@@ -108,7 +108,7 @@ class NEOExplorer(AbstractExplorer):
     
 
     def map_data_to_close_approach(self, data: List[dict]) -> List[CometCloseApproachData]:
-        """Map raw data of all close approachs to DAO format
+        """Map raw data of all close approaches to DAO format
 
         Args:
             data (List[dict])
@@ -141,7 +141,7 @@ class NEOExplorer(AbstractExplorer):
         Returns:
             datetime.datetime
         """
-        return datetime.fromtimestamp(epoch / 1000)
+        return datetime.datetime.fromtimestamp(epoch / 1000)
 
 
 def get(data: Any, data_type: type, *keys: str) -> Any:

@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from .NasaAPIAccess import NasaAPIAccess
+from comets.nasa_service.NasaAPIAccess import NasaAPIAccess
 
 
 class AbstractExplorer(ABC):
