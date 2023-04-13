@@ -2,10 +2,8 @@ import logging
 from datetime import date
 from typing import Any, Dict
 
-from django import http
 from django.views.generic import TemplateView
 from django.conf import settings
-from django.shortcuts import redirect, resolve_url
 
 from comets.forms import SearchCometForm
 
@@ -32,7 +30,9 @@ class CometComingView(TemplateView):
             )
         except NasaServiceError as exc:
             logger.critical(str(exc))
-            context["error_message"] = "Connection to the Nasa service encountered a problem."
+            context.update({"error_message": 
+                            "Connection to the Nasa service encountered a problem."})
+
 
         context["the_end"] = the_end
         return context

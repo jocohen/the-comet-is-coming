@@ -56,4 +56,4 @@ class NasaAPIAccess:
 
 
     def forge_url(self, endpoint: str) -> str:
-        return self.NASA_BASE_URL + self.service + endpoint;
+        return self.NASA_BASE_URL + self.service + endpoint

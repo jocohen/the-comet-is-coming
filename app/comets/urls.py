@@ -11,6 +11,14 @@ urlpatterns = [
     path("lost/", views.LostView.as_view(), name="lost"),
     path("comets/", views.CometsListView.as_view(), name="list"),
     path("comets/<int:id>/", views.CometDetailView.as_view(), name="detail"),
-    path("comets/<int:id>/<dateiso:date_ref>/", views.CometDetailView.as_view(), name="detail"),
-    path("comets/<int:id>/<dateiso:date_ref>/<int:n>/", views.CometDetailView.as_view(), name="detail"),
+    path(
+        "comets/<int:id>/<dateiso:date_ref>/",
+        views.CometDetailView.as_view(),
+        name="detail"
+    ),
+    path(
+        "comets/<int:id>/<dateiso:date_ref>/<int:n>/",
+        views.CometDetailView.as_view(),
+        name="detail"
+    ),
 ]

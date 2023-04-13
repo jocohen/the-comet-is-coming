@@ -26,7 +26,8 @@ class NEOCometDetail(NamedTuple):
         diameter_avg (float): approx average diameter in meters
         is_hazardous (bool): if comet has hazardous materials
         is_sentry (bool): if it will hit earth
-        close_approaches (List[CometCloseApproachData]): all the times the comet approached Earth
+        close_approaches (List[CometCloseApproachData]): all the times
+        the comet approached Earth
     """
     id: int
     name: str
