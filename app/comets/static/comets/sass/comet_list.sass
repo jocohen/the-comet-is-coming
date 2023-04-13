@@ -1,28 +1,27 @@
 @use "utils.sass"
 
 #list-section
-    padding: 0 3vh
+    padding: 0 7vh
 
     #list-title
         text-align: center
 
         h2
             margin-top: 5vh
-        p
-            font-size: 3vh
-            font-family: "BaiJamjuree-light"
-            span
-                font-family: "BaiJamjuree-bold"
+            font-size: 3vw
     
     #search-form
+        font-size: 2vw
+
         .btn
             border-color: white
             background-color: black
             color: white
 
+
     .list-row
         a
-            font-size: 2vw
+            font-size: 18px
             font-family: "BaiJamjuree-light"
             color: #fff
 
@@ -30,3 +29,6 @@
                 color: #6c16dc
             &:visited
                 color: #b67eff
+
+            @media screen and (max-width: utils.$max-sm)
+                font-size: 2vw

@@ -22,6 +22,12 @@
 .panel .panel-header, .panel .panel-body {
   padding: 5px 15px;
 }
+@media screen and (max-width: 767px) {
+  .panel .panel-header, .panel .panel-body {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
 
 .btn {
   padding: 0px 7px;
@@ -37,20 +43,17 @@
 }
 
 #list-section {
-  padding: 0 3vh;
+  padding: 0 7vh;
 }
 #list-section #list-title {
   text-align: center;
 }
 #list-section #list-title h2 {
   margin-top: 5vh;
+  font-size: 3vw;
 }
-#list-section #list-title p {
-  font-size: 3vh;
-  font-family: "BaiJamjuree-light";
-}
-#list-section #list-title p span {
-  font-family: "BaiJamjuree-bold";
+#list-section #search-form {
+  font-size: 2vw;
 }
 #list-section #search-form .btn {
   border-color: white;
@@ -58,7 +61,7 @@
   color: white;
 }
 #list-section .list-row a {
-  font-size: 2vw;
+  font-size: 18px;
   font-family: "BaiJamjuree-light";
   color: #fff;
 }
@@ -67,6 +70,11 @@
 }
 #list-section .list-row a:visited {
   color: #b67eff;
+}
+@media screen and (max-width: 767px) {
+  #list-section .list-row a {
+    font-size: 2vw;
+  }
 }
 
 /*# sourceMappingURL=comet_list.css.map */
