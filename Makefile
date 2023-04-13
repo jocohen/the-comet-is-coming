@@ -22,3 +22,6 @@ restart: stop up ## Restart the container
 l: lint
 lint: ## Python lint
 	PYTHONPATH=. ruff --config ruff.toml app
+
+test: ## Test via Django tester
+	./app/manage.py test app

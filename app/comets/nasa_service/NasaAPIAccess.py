@@ -48,8 +48,8 @@ class NasaAPIAccess:
             response.raise_for_status()
             data = response.json()
         except requests.HTTPError as exc:
-            message = response.status_code
-            raise NasaServiceError(str(message) + "|||||" + str(exc))
+            code = response.status_code
+            raise NasaServiceError(f"HTTP Code : {code}, Exception message {str(exc)}")
         except requests.JSONDecodeError:
             raise NasaServiceError("Invalid json received")
         return data
