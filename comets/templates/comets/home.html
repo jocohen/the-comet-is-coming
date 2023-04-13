@@ -1,30 +1,35 @@
 {% extends 'base.html' %}
 
+{% block head %}
+{% load static %}
+<link href="{% static 'comets/css/home.css' %}" rel="stylesheet" type="text/css">
+{% endblock head %}
+
 {% block content %}
-<div class="flex flex-column items-center">
-    <div class="self-center home-question">
+<section id="home-section">
+    <div class="flex flex-column items-center">
+        <div class="home-question">
+    
+            <h1>Is the comet coming ?</h1>
+    
+            {% if the_end is True %}
+            <p class="the-end">Yes, good luck !</p>
+            {% else %}
+            <p class="no-end">No, not today.</p>
+            {% endif %}
+    
+            <a href="{% url 'comets:lost' %}">Lost</a>
+    
+        </div>
 
-        <h1>Is the comet coming ?</h1>
+        <div class="panel investigate-panel">
+            <div class="panel-body">
+    
+                <h4>Investigate</h4>
 
-        {% if the_end is True %}
-        <p class="the-end">Yes, good luck !</p>
-        {% else %}
-        <p class="no-end">No, not today.</p>
-        {% endif %}
-
-        <a href="{% url 'comets:lost' %}">Lost</a>
-
+                {% include 'comets/search_form.html' with form=search_form only %}
+            </div>
+        </div>
     </div>
-
-    <div class="self-center investigate-panel">
-
-        <h4>Investigate</h4>
-
-        <form action="{% url 'comets:list' %}" method="get">
-            {{ search_form }}
-            <input type="submit" value="Load">
-        </form>
-
-    </div>
-</div>
+</section>
 {% endblock content %}

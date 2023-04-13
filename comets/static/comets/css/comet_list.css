@@ -1,0 +1,72 @@
+.panel {
+  padding: 5px;
+  background-color: #161417;
+  border-radius: 10px;
+  border: 1px solid #2f2f2f;
+}
+.panel.panel-list {
+  margin-top: 7vh;
+  margin-bottom: 7vh;
+}
+.panel.panel-list .panel-header {
+  padding-top: 10px;
+  font-size: 2vw;
+}
+.panel.panel-list .panel-body {
+  padding-top: 8px;
+}
+.panel.panel-list .panel-body .list-row {
+  margin-top: 9px;
+  margin-bottom: 9px;
+}
+.panel .panel-header, .panel .panel-body {
+  padding: 5px 15px;
+}
+
+.btn {
+  padding: 0px 7px;
+  margin-top: 2.5vh;
+  border: 3px solid;
+  background-color: white;
+  box-shadow: 1px 1px, 2px 2px, 3px 3px, 4px 4px, 5px 5px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+.btn:active {
+  box-shadow: 0px 0px;
+}
+
+#list-section {
+  padding: 0 3vh;
+}
+#list-section #list-title {
+  text-align: center;
+}
+#list-section #list-title h2 {
+  margin-top: 5vh;
+}
+#list-section #list-title p {
+  font-size: 3vh;
+  font-family: "BaiJamjuree-light";
+}
+#list-section #list-title p span {
+  font-family: "BaiJamjuree-bold";
+}
+#list-section #search-form .btn {
+  border-color: white;
+  background-color: black;
+  color: white;
+}
+#list-section .list-row a {
+  font-size: 2vw;
+  font-family: "BaiJamjuree-light";
+  color: #fff;
+}
+#list-section .list-row a:active {
+  color: #6c16dc;
+}
+#list-section .list-row a:visited {
+  color: #b67eff;
+}
+
+/*# sourceMappingURL=comet_list.css.map */

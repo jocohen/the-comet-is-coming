@@ -1,0 +1,71 @@
+.panel {
+  padding: 5px;
+  background-color: #161417;
+  border-radius: 10px;
+  border: 1px solid #2f2f2f;
+}
+.panel.panel-list {
+  margin-top: 7vh;
+  margin-bottom: 7vh;
+}
+.panel.panel-list .panel-header {
+  padding-top: 10px;
+  font-size: 2vw;
+}
+.panel.panel-list .panel-body {
+  padding-top: 8px;
+}
+.panel.panel-list .panel-body .list-row {
+  margin-top: 9px;
+  margin-bottom: 9px;
+}
+.panel .panel-header, .panel .panel-body {
+  padding: 5px 15px;
+}
+
+.btn {
+  padding: 0px 7px;
+  margin-top: 2.5vh;
+  border: 3px solid;
+  background-color: white;
+  box-shadow: 1px 1px, 2px 2px, 3px 3px, 4px 4px, 5px 5px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+.btn:active {
+  box-shadow: 0px 0px;
+}
+
+#home-section {
+  margin-top: 15vh;
+  padding: 5vh;
+}
+#home-section .home-question {
+  text-align: center;
+}
+#home-section .home-question h1 {
+  font-size: 7vh;
+}
+#home-section .home-question p {
+  font-family: "BaiJamjuree-light";
+  font-size: 4.5vh;
+}
+#home-section .home-question p .the-end {
+  font-size: 5.5vh;
+}
+#home-section .home-question a {
+  font-family: "BaiJamjuree-bold";
+  font-size: 1.5vh;
+  color: white;
+}
+#home-section .investigate-panel {
+  margin-top: 8vh;
+  padding: 10px 15px;
+}
+#home-section .investigate-panel h4 {
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+/*# sourceMappingURL=home.css.map */

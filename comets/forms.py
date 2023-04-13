@@ -8,10 +8,10 @@ from django.utils.translation import gettext as _
 
 class SearchCometForm(forms.Form):
     from_date = forms.DateField(
-        label="From", required=True, widget=forms.DateInput(attrs={"type":"date"})
+        label="From", required=False, widget=forms.DateInput(attrs={"type":"date", "required":""})
     )
     to_date = forms.DateField(
-        label="To", required=True, widget=forms.DateInput(attrs={"type":"date"})
+        label="To", required=False, widget=forms.DateInput(attrs={"type":"date", "required":""})
     )
 
     def clean(self) -> Dict[str, Any]:
@@ -23,7 +23,7 @@ class SearchCometForm(forms.Form):
             delta = to_date - from_date
             if delta < timedelta():
                 raise ValidationError(
-                    _("From date cannot be superior to the to date"),
+                    _("From date cannot be superior to the To date"),
                     code="from_date_superior"
                 )
             if delta > timedelta(days=7):
@@ -31,3 +31,8 @@ class SearchCometForm(forms.Form):
                     _("The time limit difference is of 7 days max"),
                     code="time_delta_max"
                 )
+        else:
+            raise ValidationError(
+                _("Both dates input are required"),
+                code="date_require"
+            )

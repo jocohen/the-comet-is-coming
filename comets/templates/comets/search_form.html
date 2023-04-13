@@ -1,0 +1,10 @@
+{% load static %}
+
+{% block head %}
+<link href="{% static 'comets/css/search_form.css' %}" rel="stylesheet" type="text/css">
+{% endblock head %}
+
+<form class="search_date_form" action="{% url 'comets:list' %}" method="get">
+    {{ form }}
+    <input class="btn block mx-auto" type="submit" value="Load">
+</form>
