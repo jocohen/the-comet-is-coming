@@ -1,8 +1,6 @@
 import logging
 from typing import Any, Dict
 
-from django import http
-from django.shortcuts import redirect
 from django.conf import settings
 from django.views.generic import TemplateView
 
@@ -22,7 +20,8 @@ class CometsListView(TemplateView):
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
         context = super().get_context_data(**kwargs)
 
-        if self.request.GET.get("from_date") is None and self.request.GET.get("to_date") is None:
+        if self.request.GET.get("from_date") is None\
+        and self.request.GET.get("to_date") is None:
             # If coming without params do not show erros
             # @todo find better way to achieve this
             form = SearchCometForm()
@@ -41,9 +40,11 @@ class CometsListView(TemplateView):
                 comets = service.get_neos_by_dates(from_date, to_date)
             except NasaServiceError as exc:
                 logger.error(
-                    f"NasaServiceError when searching for comets in dates {from_date}/{to_date}.Exc message : {str(exc)}"
+                    f"NasaServiceError when searching for comets\
+                      in dates {from_date}/{to_date}.Exc message : {str(exc)}"
                 )
-                context["error_message"] = "Connection to the Nasa service encountered a problem."
+                context.update({"error_message": 
+                            "Connection to the Nasa service encountered a problem."})
 
         context["search_form"] = form
         context["comets"] = comets

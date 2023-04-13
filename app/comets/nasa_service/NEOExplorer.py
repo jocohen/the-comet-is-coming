@@ -3,7 +3,9 @@ import json
 from typing import List, Any
 
 from comets.nasa_service.AbstractExplorer import AbstractExplorer
-from comets.nasa_service.schemas import NEOCometDetail, CometCloseApproachData, NasaServiceError
+from comets.nasa_service.schemas import (
+    NEOCometDetail, CometCloseApproachData, NasaServiceError
+)
 
 
 class NEOExplorer(AbstractExplorer):
@@ -25,7 +27,9 @@ class NEOExplorer(AbstractExplorer):
         return "/neo/rest/v1"
 
 
-    def get_neos_by_dates(self, start_date: datetime.date, end_date: datetime.date) -> List[NEOCometDetail]:
+    def get_neos_by_dates(
+        self, start_date: datetime.date, end_date: datetime.date
+    ) -> List[NEOCometDetail]:
         """Get NEOs by a start_date and an end_date
 
         Args:
@@ -33,7 +37,8 @@ class NEOExplorer(AbstractExplorer):
             end_date (datetime.date)
 
         Raises:
-            NasaServiceError: when the sourcing of the data had a problem (info in the exc)
+            NasaServiceError: when the sourcing of the data had
+            a problem (info in the exc)
 
         Returns:
             List[NEOCometDetail]: list of neos
@@ -62,7 +67,8 @@ class NEOExplorer(AbstractExplorer):
             comet_id (int)
 
         Raises:
-            NasaServiceError: when the sourcing of the data had a problem (info in the exc)
+            NasaServiceError: when the sourcing of the data had
+            a problem (info in the exc)
 
 
         Returns:
@@ -91,12 +97,20 @@ class NEOExplorer(AbstractExplorer):
                 id=int(get(raw, str, "neo_reference_id")),
                 name=get(raw, str, "name"),
                 diameter_avg=self.calculate_diameter_average(
-                    min=get(raw, float, "estimated_diameter", "meters", "estimated_diameter_min"),
-                    max=get(raw, float, "estimated_diameter", "meters", "estimated_diameter_max")
+                    min=get(
+                        raw, float,
+                        "estimated_diameter", "meters", "estimated_diameter_min"
+                    ),
+                    max=get(
+                        raw, float,
+                        "estimated_diameter", "meters", "estimated_diameter_max"
+                    )
                 ),
                 is_hazardous=get(raw, bool, "is_potentially_hazardous_asteroid"),
                 is_sentry=get(raw, bool, "is_sentry_object"),
-                close_approaches=self.map_data_to_close_approach(get(raw, list, "close_approach_data"))
+                close_approaches=self.map_data_to_close_approach(
+                    get(raw, list, "close_approach_data")
+                )
             )
     
             return comet
@@ -105,7 +119,9 @@ class NEOExplorer(AbstractExplorer):
             raise NasaServiceError(f"Invalid data:{json.dumps(raw)}")
     
 
-    def map_data_to_close_approach(self, data: List[dict]) -> List[CometCloseApproachData]:
+    def map_data_to_close_approach(
+        self, data: List[dict]
+    ) -> List[CometCloseApproachData]:
         """Map raw data of all close approaches to DAO format
 
         Args:
@@ -121,7 +137,9 @@ class NEOExplorer(AbstractExplorer):
                     time=self.convert_epoch_to_datetime(
                         get(raw, int, "epoch_date_close_approach")
                     ),
-                    velocity=float(get(raw, str, "relative_velocity", "kilometers_per_second")),
+                    velocity=float(get(
+                        raw, str, "relative_velocity", "kilometers_per_second"
+                    )),
                     distance=float(get(raw, str, "miss_distance", "kilometers")),
                     orbiting_body=get(raw, str, "orbiting_body")
                 )

@@ -8,10 +8,14 @@ from django.utils.translation import gettext as _
 
 class SearchCometForm(forms.Form):
     from_date = forms.DateField(
-        label="From", required=False, widget=forms.DateInput(attrs={"type":"date", "required":""})
+        label="From",
+        required=False,
+        widget=forms.DateInput(attrs={"type":"date", "required":""})
     )
     to_date = forms.DateField(
-        label="To", required=False, widget=forms.DateInput(attrs={"type":"date", "required":""})
+        label="To",
+        required=False,
+        widget=forms.DateInput(attrs={"type":"date", "required":""})
     )
 
     def clean(self) -> Dict[str, Any]:

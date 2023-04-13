@@ -14,4 +14,4 @@ WORKDIR /app
 COPY . .
 
 # Run server
-CMD [ "python", "manage.py", "runserver", "0.0.0.0:80" ]
+CMD [ "python", "app/manage.py", "runserver", "0.0.0.0:80" ]
