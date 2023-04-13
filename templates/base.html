@@ -1,14 +1,29 @@
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}The Comet Is Coming{% endblock title %}</title>
-    <link href="https://unpkg.com/basscss@8.0.2/css/basscss.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/basscss@8.0.2/css/basscss.min.css" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/base.css' %}" rel="stylesheet" type="text/css">
+    <link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.ico' %}"/>
+    {% block head %}
+    {% endblock head %}
 </head>
 <body>
+    <div id="small-stars-bg"></div>
+    <div id="medium-stars-bg"></div>
+    <div id="big-stars-bg"></div>
     <main>
         {% block content %}
         {% endblock content %}
     </main>
+    <footer>
+        {% if error_message is not None%}
+        <div class="error-block block mx-auto">
+            <p>{{ error_message }}</p>
+        </div>
+        {% endif %}
+    </footer>
 </body>
 </html>

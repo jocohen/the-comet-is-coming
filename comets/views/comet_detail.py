@@ -17,22 +17,36 @@ class CometDetailView(TemplateView):
     template_name = "comets/detail.html"
 
 
-    def get_context_data(self, id: int, date_ref: date, **kwargs: Any) -> Dict[str, Any]:
+    def get_context_data(
+            self,
+            id: int,
+            date_ref: date = date.today(),
+            n: int = 5,
+            **kwargs: Any
+    ) -> Dict[str, Any]:
         context = super().get_context_data(**kwargs)
 
         service = NEOExplorer(settings.NASA_API_KEY)
         try:
             comet = service.get_neo_by_id(id)
+            last_approaches = self.get_last_n_approaches_by_date(comet.close_approaches, date_ref, n)
+            context.update(
+                {
+                    "comet_loaded": comet.id,
+                    "name": comet.name,
+                    "diameter": comet.diameter_avg,
+                    "is_hazardous": comet.is_hazardous,
+                    "is_sentry": comet.is_sentry,
+                    "last_approaches": last_approaches,
+                    "date_ref": date_ref
+                }
+            )
         except NasaServiceError as exc:
             logger.error(
                 f"NasaServiceError getting detail of {id}. Exc message: {str(exc)}"
             )
-            # @todo handle error
-
-        last_approaches = self.get_last_n_approaches_by_date(comet.close_approaches, date_ref)
-
-        context["comet"] = comet
-        context["last_approaches"] = last_approaches
+            context["error_message"] = "Connection to the Nasa service encountered a problem."
+        
         return context
 
 
@@ -40,7 +54,7 @@ class CometDetailView(TemplateView):
             self,
             data: List,
             date_ref: date,
-            n: int = 5
+            n: int,
         ) -> List:
         """
         Get last n approach by a date reference\n
@@ -49,7 +63,7 @@ class CometDetailView(TemplateView):
         Args:
             data (List): list of all the close approach of the comet
             date_ref (date): date reference to get the latest n approaches
-            n (int): number of approaches to keep. Default to 5
+            n (int): number of approaches to keep
 
         Returns:
             List: latest n approaches

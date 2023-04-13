@@ -12,8 +12,8 @@ class CometCloseApproachData(NamedTuple):
         orbiting_body (str): which celestials it's in orbit
     """
     time: datetime
-    velocity: str
-    distance: str
+    velocity: float
+    distance: float
     orbiting_body: str
 
 
@@ -23,16 +23,14 @@ class NEOCometDetail(NamedTuple):
     Attributes:
         id (int): NEO reference id
         name (str): name of comet
-        diameter_min (float): approx min diameter in meters
-        diameter_max (float): approx max diameter in meters
+        diameter_avg (float): approx average diameter in meters
         is_hazardous (bool): if comet has hazardous materials
         is_sentry (bool): if it will hit earth
         close_approaches (List[CometCloseApproachData]): all the times the comet approached Earth
     """
     id: int
     name: str
-    diameter_min: float
-    diameter_max: float
+    diameter_avg: int
     is_hazardous: bool
     is_sentry: bool
     close_approaches: List[CometCloseApproachData]

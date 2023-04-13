@@ -90,11 +90,9 @@ class NEOExplorer(AbstractExplorer):
             comet = NEOCometDetail(
                 id=int(get(raw, str, "neo_reference_id")),
                 name=get(raw, str, "name"),
-                diameter_min=get(
-                    raw, float, "estimated_diameter", "meters", "estimated_diameter_min"
-                ),
-                diameter_max=get(
-                    raw, float, "estimated_diameter", "meters", "estimated_diameter_max"
+                diameter_avg=self.calculate_diameter_average(
+                    min=get(raw, float, "estimated_diameter", "meters", "estimated_diameter_min"),
+                    max=get(raw, float, "estimated_diameter", "meters", "estimated_diameter_max")
                 ),
                 is_hazardous=get(raw, bool, "is_potentially_hazardous_asteroid"),
                 is_sentry=get(raw, bool, "is_sentry_object"),
@@ -123,8 +121,8 @@ class NEOExplorer(AbstractExplorer):
                     time=self.convert_epoch_to_datetime(
                         get(raw, int, "epoch_date_close_approach")
                     ),
-                    velocity=get(raw, str, "relative_velocity", "kilometers_per_second"),
-                    distance=get(raw, str, "miss_distance", "kilometers"),
+                    velocity=float(get(raw, str, "relative_velocity", "kilometers_per_second")),
+                    distance=float(get(raw, str, "miss_distance", "kilometers")),
                     orbiting_body=get(raw, str, "orbiting_body")
                 )
             )
@@ -142,6 +140,10 @@ class NEOExplorer(AbstractExplorer):
             datetime.datetime
         """
         return datetime.datetime.fromtimestamp(epoch / 1000)
+
+
+    def calculate_diameter_average(self, min: float, max: float) -> int:
+        return round((min + max) / 2)
 
 
 def get(data: Any, data_type: type, *keys: str) -> Any:

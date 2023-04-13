@@ -25,14 +25,16 @@ class CometComingView(TemplateView):
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
         context = super().get_context_data(**kwargs)
 
+        the_end = False
         try:
-            context["the_end"] = self.is_the_comet_coming(
+            the_end = self.is_the_comet_coming(
                 self.request.GET.get("override", False) is not False
             )
         except NasaServiceError as exc:
             logger.critical(str(exc))
-            # @todo handle error
+            context["error_message"] = "Connection to the Nasa service encountered a problem."
 
+        context["the_end"] = the_end
         return context
 
 
