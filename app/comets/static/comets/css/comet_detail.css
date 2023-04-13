@@ -22,6 +22,12 @@
 .panel .panel-header, .panel .panel-body {
   padding: 5px 15px;
 }
+@media screen and (max-width: 767px) {
+  .panel .panel-header, .panel .panel-body {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
 
 .btn {
   padding: 0px 7px;
@@ -43,29 +49,50 @@
   text-align: center;
 }
 #detail-section #detail-title h2 {
+  font-size: 3.2vw;
   margin: 7vh;
 }
 #detail-section #detail-title h2 .comet-highlight {
-  font-size: 3.4vw;
+  font-size: 3.6vw;
+}
+@media screen and (max-width: 767px) {
+  #detail-section #detail-title h2 .comet-highlight {
+    font-size: 25px;
+  }
 }
 #detail-section #detail-title a {
   color: white;
+  font-size: 20px;
 }
 #detail-section #detail-title .detail-info {
   margin-top: 4vh;
+  font-size: 20px;
 }
 #detail-section #detail-title .detail-info span {
   font-family: "BaiJamjuree-light";
 }
+#detail-section .panel-list .panel-header {
+  font-size: 20px;
+}
+@media screen and (max-width: 767px) {
+  #detail-section .panel-list .panel-header {
+    font-size: 15px;
+  }
+}
 #detail-section .panel-list .panel-header h4 {
+  font-size: 20px;
   text-align: center;
-  font-size: 1.8vw;
-  margin-top: 0;
-  margin-bottom: 4vh;
+  margin-top: 2vh;
+  margin-bottom: 5vh;
 }
 #detail-section .panel-list .panel-body .list-row {
-  font-size: 2vw;
+  font-size: 20px;
   font-family: "BaiJamjuree-light";
+}
+@media screen and (max-width: 767px) {
+  #detail-section .panel-list .panel-body .list-row {
+    font-size: 17px;
+  }
 }
 #detail-section .panel-list .panel-footer {
   margin-top: 25px;

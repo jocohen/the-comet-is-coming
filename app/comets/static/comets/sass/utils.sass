@@ -1,3 +1,10 @@
+$max-xs: 575px
+$min-sm: 576px
+$max-sm: 767px
+$min-md: 768px
+$max-md: 991px
+$min-lg: 992px
+    
 .panel
     padding: 5px
     background-color: #161417
@@ -20,6 +27,10 @@
     
     .panel-header, .panel-body
         padding: 5px 15px
+
+        @media screen and (max-width: $max-sm)
+            padding-left: 10px
+            padding-right: 10px
 
 .btn
     padding: 0px 7px

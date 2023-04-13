@@ -7,30 +7,44 @@
         text-align: center
 
         h2
+            font-size: 3.2vw
             margin: 7vh
+
             .comet-highlight
-                font-size: 3.4vw
-        
+                font-size: 3.6vw
+
+                @media screen and ( max-width: utils.$max-sm )
+                    font-size: 25px
+
         a
             color: white
+            font-size: 20px
 
         .detail-info
             margin-top: 4vh
+            font-size: 20px
             span
                 font-family: "BaiJamjuree-light"
 
     .panel-list
         .panel-header
+            font-size: 20px
+            @media screen and ( max-width: utils.$max-sm )
+                font-size: 15px
+
             h4
+                font-size: 20px
                 text-align: center
-                font-size: 1.8vw
-                margin-top: 0
-                margin-bottom: 4vh
+                margin-top: 2vh
+                margin-bottom: 5vh
 
         .panel-body
             .list-row
-                font-size: 2vw
+                font-size: 20px
                 font-family: "BaiJamjuree-light"
+
+                @media screen and ( max-width: utils.$max-sm )
+                    font-size: 17px
 
         .panel-footer
             margin-top: 25px

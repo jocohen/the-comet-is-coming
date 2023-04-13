@@ -22,6 +22,12 @@
 .panel .panel-header, .panel .panel-body {
   padding: 5px 15px;
 }
+@media screen and (max-width: 767px) {
+  .panel .panel-header, .panel .panel-body {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
 
 .btn {
   padding: 0px 7px;
@@ -55,7 +61,7 @@
 }
 #home-section .home-question a {
   font-family: "BaiJamjuree-bold";
-  font-size: 1.5vh;
+  font-size: 13px;
   color: white;
 }
 #home-section .investigate-panel {
