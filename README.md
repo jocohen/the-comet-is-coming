@@ -3,6 +3,8 @@
 The comet is coming is a Django website that implements NASA Near Earth Object API
 to display the asteroids approaching Earth between certain dates.
 
+Works for Python v11, Django v4.2
+
 ## Requirements
 
 This project requires the following:
@@ -37,8 +39,9 @@ To see other makefile rules:
 make
 ```
 
-## Trajectory
+## Todo
 
 - Possibility to have order_by on certain params on [CometsListView](app/comets/views/comets_list.py), [CometDetailView](app/comets/views/comet_detail.py)
 - Have home UI display a comet when the comet is really coming
+- Add a faker to test mapping of data in NASA service
 - Deploy in production
