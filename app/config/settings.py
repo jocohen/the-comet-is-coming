@@ -18,7 +18,7 @@ import environ
 env = environ.Env(
     # set casting, default value
     DEBUG=(bool, False),
-    STATIC_ROOT_DIR=(str, "/data/staticfiles"),
+    STATIC_DIR_ROOT=(str, "/data/staticfiles"),
 )
 
 
