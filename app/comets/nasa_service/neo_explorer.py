@@ -1,11 +1,10 @@
 import datetime
 import json
-from typing import List, Any
+from typing import Any, List
 
-from comets.nasa_service.AbstractExplorer import AbstractExplorer
-from comets.nasa_service.schemas import (
-    NEOCometDetail, CometCloseApproachData, NasaServiceError
-)
+from comets.nasa_service.abstract_explorer import AbstractExplorer
+from comets.nasa_service.schemas import CometCloseApproachData, NEOCometDetail
+from comets.nasa_service.service_errors import NasaServiceError
 
 
 class NEOExplorer(AbstractExplorer):
@@ -13,19 +12,18 @@ class NEOExplorer(AbstractExplorer):
 
     Constructors:
     __new__()
-    
+
     Methods:
     get_neos_by_dates()
     get_neo_by_id()
-    
+
     """
+
     LIST_ENDPOINT = "/feed"
     LOOKUP_ENDPOINT = "/neo"
 
-
     def get_service_endpoint(self) -> str:
         return "/neo/rest/v1"
-
 
     def get_neos_by_dates(
         self, start_date: datetime.date, end_date: datetime.date
@@ -45,10 +43,7 @@ class NEOExplorer(AbstractExplorer):
         """
         data = self.data_access.get(
             self.LIST_ENDPOINT,
-            {
-                "start_date": start_date.isoformat(),
-                "end_date": end_date.isoformat()
-            }
+            {"start_date": start_date.isoformat(), "end_date": end_date.isoformat()},
         )
 
         data = data.get("near_earth_objects", {}).values()
@@ -58,7 +53,6 @@ class NEOExplorer(AbstractExplorer):
             for comet in comets:
                 comet_list.append(self.map_data_to_comet_detail(comet))
         return comet_list
-
 
     def get_neo_by_id(self, comet_id: str) -> NEOCometDetail:
         """Get more info on one NEO by id
@@ -78,14 +72,13 @@ class NEOExplorer(AbstractExplorer):
 
         return self.map_data_to_comet_detail(data)
 
-
     def map_data_to_comet_detail(self, raw: dict) -> NEOCometDetail:
         """
         Map raw data of a NEO to DAO format.
 
         Args:
             raw (dict)
-        
+
         Raises:
             NasaServiceError: when the data is invalid
 
@@ -98,26 +91,31 @@ class NEOExplorer(AbstractExplorer):
                 name=get(raw, str, "name"),
                 diameter_avg=self.calculate_diameter_average(
                     min=get(
-                        raw, float,
-                        "estimated_diameter", "meters", "estimated_diameter_min"
+                        raw,
+                        float,
+                        "estimated_diameter",
+                        "meters",
+                        "estimated_diameter_min",
                     ),
                     max=get(
-                        raw, float,
-                        "estimated_diameter", "meters", "estimated_diameter_max"
-                    )
+                        raw,
+                        float,
+                        "estimated_diameter",
+                        "meters",
+                        "estimated_diameter_max",
+                    ),
                 ),
                 is_hazardous=get(raw, bool, "is_potentially_hazardous_asteroid"),
                 is_sentry=get(raw, bool, "is_sentry_object"),
                 close_approaches=self.map_data_to_close_approach(
                     get(raw, list, "close_approach_data")
-                )
+                ),
             )
-    
+
             return comet
 
         except (ValueError, TypeError):
             raise NasaServiceError(f"Invalid data:{json.dumps(raw)}")
-    
 
     def map_data_to_close_approach(
         self, data: List[dict]
@@ -137,15 +135,14 @@ class NEOExplorer(AbstractExplorer):
                     time=self.convert_epoch_to_datetime(
                         get(raw, int, "epoch_date_close_approach")
                     ),
-                    velocity=float(get(
-                        raw, str, "relative_velocity", "kilometers_per_second"
-                    )),
+                    velocity=float(
+                        get(raw, str, "relative_velocity", "kilometers_per_second")
+                    ),
                     distance=float(get(raw, str, "miss_distance", "kilometers")),
-                    orbiting_body=get(raw, str, "orbiting_body")
+                    orbiting_body=get(raw, str, "orbiting_body"),
                 )
             )
         return mapped_data
-
 
     def convert_epoch_to_datetime(self, epoch: int) -> datetime.datetime:
         """
@@ -158,7 +155,6 @@ class NEOExplorer(AbstractExplorer):
             datetime.datetime
         """
         return datetime.datetime.fromtimestamp(epoch / 1000)
-
 
     def calculate_diameter_average(self, min: float, max: float) -> int:
         return round((min + max) / 2)

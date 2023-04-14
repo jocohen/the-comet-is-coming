@@ -1,8 +1,7 @@
-from typing import Dict, Any
+from typing import Any, Dict
 
 import requests
-
-from comets.nasa_service.schemas import NasaServiceError
+from comets.nasa_service.service_errors import NasaServiceError
 
 
 class NasaAPIAccess:
@@ -11,8 +10,8 @@ class NasaAPIAccess:
     In the future we can add an DataAccess abstract to implement
     multiple data sources (other framework to access an API)
     """
-    NASA_BASE_URL = "https://api.nasa.gov"
 
+    NASA_BASE_URL = "https://api.nasa.gov"
 
     def __init__(self, api_key: str, api_service: str) -> None:
         """
@@ -26,7 +25,6 @@ class NasaAPIAccess:
         self.api_key = api_key
         self.service = api_service
 
-
     def get(self, endpoint: str, payload: Dict = {}) -> Any:
         """
         Get the nasa api on the final endpoint specified with the according
@@ -35,7 +33,7 @@ class NasaAPIAccess:
         Args:
             endpoint (str): dynamic endpoint
             payload (Dict): dict of all the parameters sent with the request
-        
+
         Raises:
             NasaServiceError: when http error occured or json is invalid
 
@@ -53,7 +51,6 @@ class NasaAPIAccess:
         except requests.JSONDecodeError:
             raise NasaServiceError("Invalid json received")
         return data
-
 
     def forge_url(self, endpoint: str) -> str:
         return self.NASA_BASE_URL + self.service + endpoint

@@ -1,2 +1,1 @@
-from .NEOData import NEOCometDetail, CometCloseApproachData
-from .service_errors import NasaServiceError
+from .neo_data import CometCloseApproachData, NEOCometDetail

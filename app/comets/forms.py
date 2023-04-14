@@ -1,5 +1,5 @@
-from typing import Dict, Any
 from datetime import timedelta
+from typing import Any, Dict
 
 from django import forms
 from django.core.exceptions import ValidationError
@@ -10,12 +10,12 @@ class SearchCometForm(forms.Form):
     from_date = forms.DateField(
         label="From",
         required=False,
-        widget=forms.DateInput(attrs={"type":"date", "required":""})
+        widget=forms.DateInput(attrs={"type": "date", "required": ""}),
     )
     to_date = forms.DateField(
         label="To",
         required=False,
-        widget=forms.DateInput(attrs={"type":"date", "required":""})
+        widget=forms.DateInput(attrs={"type": "date", "required": ""}),
     )
 
     def clean(self) -> Dict[str, Any]:
@@ -28,15 +28,14 @@ class SearchCometForm(forms.Form):
             if delta < timedelta():
                 raise ValidationError(
                     _("From date cannot be superior to the To date"),
-                    code="from_date_superior"
+                    code="from_date_superior",
                 )
             if delta > timedelta(days=7):
                 raise ValidationError(
                     _("The time limit difference is of 7 days max"),
-                    code="time_delta_max"
+                    code="time_delta_max",
                 )
         else:
             raise ValidationError(
-                _("Both dates input are required"),
-                code="date_require"
+                _("Both dates input are required"), code="date_require"
             )

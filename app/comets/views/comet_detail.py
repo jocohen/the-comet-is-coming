@@ -1,13 +1,11 @@
 import logging
-from typing import Any, Dict, List
 from datetime import date, datetime, timedelta
+from typing import Any, Dict, List
 
+from comets.nasa_service.neo_explorer import NEOExplorer
+from comets.nasa_service.service_errors import NasaServiceError
 from django.conf import settings
 from django.views.generic import TemplateView
-
-from comets.nasa_service.NEOExplorer import NEOExplorer
-from comets.nasa_service.schemas import NasaServiceError
-
 
 logger = logging.getLogger(__name__)
 
@@ -15,13 +13,8 @@ logger = logging.getLogger(__name__)
 class CometDetailView(TemplateView):
     template_name = "comets/detail.html"
 
-
     def get_context_data(
-            self,
-            id: int,
-            date_ref: date = date.today(),
-            n: int = 5,
-            **kwargs: Any
+        self, id: int, date_ref: date = date.today(), n: int = 5, **kwargs: Any
     ) -> Dict[str, Any]:
         context = super().get_context_data(**kwargs)
 
@@ -39,24 +32,28 @@ class CometDetailView(TemplateView):
                     "is_hazardous": comet.is_hazardous,
                     "is_sentry": comet.is_sentry,
                     "last_approaches": last_approaches,
-                    "date_ref": date_ref
+                    "date_ref": date_ref,
                 }
             )
         except NasaServiceError as exc:
             logger.error(
                 f"NasaServiceError getting detail of {id}. Exc message: {str(exc)}"
             )
-            context.update({"error_message": 
-                            "Connection to the Nasa service encountered a problem."})
-        
+            context.update(
+                {
+                    "error_message": (
+                        "Connection to the Nasa service encountered a problem."
+                    )
+                }
+            )
+
         return context
 
-
     def get_last_n_approaches_by_date(
-            self,
-            data: List,
-            date_ref: date,
-            n: int,
+        self,
+        data: List,
+        date_ref: date,
+        n: int,
     ) -> List:
         """
         Get last n approach by a date reference\n
@@ -84,10 +81,7 @@ class CometDetailView(TemplateView):
         for index, elem in enumerate(data):
             diff = elem.time - datetime_ref
             if diff < zero_delta:
-                diff_time.append({
-                    "index_in_data": index,
-                    "diff":  diff
-                })
+                diff_time.append({"index_in_data": index, "diff": diff})
 
         # Sorting it based on the diff in descending order
         # The next n items in diff_time are our elems
@@ -97,7 +91,5 @@ class CometDetailView(TemplateView):
         # In case there's less items at the end then n asked
         max_items = min(n, len(diff_time))
         for x in range(max_items):
-            last_approaches.append(
-                data[diff_time[x].get("index_in_data")]
-            )
+            last_approaches.append(data[diff_time[x].get("index_in_data")])
         return last_approaches
