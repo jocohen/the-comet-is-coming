@@ -45,3 +45,4 @@ make
 - Have home UI display a comet when the comet is really coming
 - Add a faker to test mapping of data in NASA service
 - Deploy in production
+- Clearer UI explanation
