@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 
 class CometComingView(TemplateView):
     """
-    Parent class for home and lost views, use to populate
+    Abstract class for home and lost views, use to populate
     context with data requested from NEO Explorer about today's comets
     to know if the comet is coming.
     """
@@ -27,7 +27,7 @@ class CometComingView(TemplateView):
                 self.request.GET.get("override", False) is not False
             )
         except NasaServiceError as exc:
-            logger.critical(str(exc))
+            logger.error(str(exc))
             context.update(
                 {
                     "error_message": (
