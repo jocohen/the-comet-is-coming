@@ -2,7 +2,7 @@
 
 .DEFAULT_GOAL := help
 
-APP_DIR = "./app"
+APP_DIR = ./app
 
 
 help: ## This help.
@@ -48,3 +48,10 @@ lint: ## Run Ruff, a Python linter
 
 test: ## Test via Django tester
 	$(APP_DIR)/manage.py test $(APP_DIR)
+
+
+precommit: af l test ## Precommit rules applied : af l test
+
+sass: ## Watch sass files
+	sass $(APP_DIR)/static/sass/:$(APP_DIR)/static/css/ \
+	$(APP_DIR)/comets/static/comets/sass/:$(APP_DIR)/comets/static/comets/css/ --watch
