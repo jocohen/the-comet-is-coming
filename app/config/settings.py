@@ -17,7 +17,8 @@ import environ
 
 env = environ.Env(
     # set casting, default value
-    DEBUG=(bool, False)
+    DEBUG=(bool, False),
+    STATIC_ROOT_DIR=(str, "/data/staticfiles"),
 )
 
 
@@ -126,7 +127,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_ROOT = "/data/staticfiles"
+STATIC_ROOT = env("STATIC_DIR_ROOT")
 
 STATIC_URL = "static/"
 
