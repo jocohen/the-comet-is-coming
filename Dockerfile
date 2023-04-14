@@ -11,7 +11,10 @@ RUN pip install -r requirements.txt
 # Copy app files
 RUN mkdir /app
 WORKDIR /app
-COPY . .
+COPY ./app/. ./docker-entrypoint.sh .
 
-# Run server
-CMD [ "python", "app/manage.py", "runserver", "0.0.0.0:80" ]
+# Create dir for static files
+RUN mkdir /data && mkdir /data/staticfiles
+
+# Run entrypoint script
+ENTRYPOINT [ "bash", "./docker-entrypoint.sh" ]
