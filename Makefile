@@ -16,11 +16,11 @@ local run: ## Run localy server
 
 # Docker compose commands
 
-build: ## Build up container
-	docker compose build
+build: ## Build and Up container
+	docker compose up -d --build
 
 
-up: ## Build and Up the container
+up: ## Up the container
 	docker compose up -d
 
 
