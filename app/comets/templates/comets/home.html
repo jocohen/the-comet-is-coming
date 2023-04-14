@@ -12,13 +12,19 @@
     
             <h1>Is the comet coming ?</h1>
     
-            {% if the_end is True %}
+            {% if the_end %}
             <p class="the-end">Yes, good luck !</p>
             {% else %}
             <p class="no-end">No, not today.</p>
             {% endif %}
     
-            <a href="{% url 'comets:lost' %}">Lost</a>
+            <a href="{% url 'comets:lost' %}">
+                {% if the_end %}
+                What to do ?
+                {% else %}
+                Lost
+                {% endif %}
+            </a>
     
         </div>
 
