@@ -6,17 +6,10 @@ APP_DIR = ./app
 
 LOAD_ENV_CMD = export `cat .env`
 
+
 help: ## This help.
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA.Z_-]+:.*?## / {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST) | sort
 
-
-# Local developpment
-
-local-static: ## Setup local static files
-	$(LOAD_ENV_CMD) && mkdir -p $$STATIC_DIR_ROOT && $(APP_DIR)/manage.py collectstatic --noinput
-
-local-run:  ## Run localy server
-	$(LOAD_ENV_CMD) && gunicorn --pythonpath "$(APP_DIR)" app.config.wsgi
 
 # Docker compose commands
 
@@ -50,12 +43,27 @@ lint: ## Run Ruff, a Python linter
 	PYTHONPATH=$(APP_DIR) ruff --config ruff.toml $(APP_DIR)
 
 
-test: ## Test via Django tester
+test: ## Test via Django tester in Container
+	docker compose exec web ./manage.py test --parallel
+
+
+# Local developpment
+
+local-test: ## Test locally via Django tester
 	$(LOAD_ENV_CMD) && $(APP_DIR)/manage.py test --parallel "auto" $(APP_DIR)
 
 
-precommit: af l test ## Precommit rules applied : af l test
+local-static: ## Setup local static files
+	$(LOAD_ENV_CMD) && mkdir -p $$STATIC_DIR_ROOT && $(APP_DIR)/manage.py collectstatic --noinput
+
+
+local-run:  ## Run locally server
+	$(LOAD_ENV_CMD) && gunicorn --pythonpath "$(APP_DIR)" app.config.wsgi
+
 
 sass: ## Watch sass files
 	sass $(APP_DIR)/static/sass/:$(APP_DIR)/static/css/ \
-	$(APP_DIR)/comets/static/comets/sass/:$(APP_DIR)/comets/static/comets/css/ --watch
+	$(APP_DIR)/comets/static/comets/sass/:$(APP_DIR)/comets/static/comets/css/
+
+
+precommit: sass af l local-test ## Precommit rules applied : af l test
