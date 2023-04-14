@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from comets.nasa_service.NasaAPIAccess import NasaAPIAccess
+from comets.nasa_service.nasa_api_access import NasaAPIAccess
 
 
 class AbstractExplorer(ABC):

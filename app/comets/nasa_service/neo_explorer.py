@@ -2,12 +2,9 @@ import datetime
 import json
 from typing import Any, List
 
-from comets.nasa_service.AbstractExplorer import AbstractExplorer
-from comets.nasa_service.schemas import (
-    CometCloseApproachData,
-    NasaServiceError,
-    NEOCometDetail,
-)
+from comets.nasa_service.abstract_explorer import AbstractExplorer
+from comets.nasa_service.schemas import CometCloseApproachData, NEOCometDetail
+from comets.nasa_service.service_errors import NasaServiceError
 
 
 class NEOExplorer(AbstractExplorer):

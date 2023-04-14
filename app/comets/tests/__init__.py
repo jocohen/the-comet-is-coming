@@ -1,4 +1,4 @@
-from .NasaServiceTests import (
+from .nasa_service_tests import (
     AbstractExplorerTests,
     NasaAPIAccessTests,
     NEOExplorerTests,

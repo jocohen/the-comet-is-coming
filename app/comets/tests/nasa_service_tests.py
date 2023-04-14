@@ -1,9 +1,10 @@
 import datetime
 
-from comets.nasa_service.AbstractExplorer import AbstractExplorer
-from comets.nasa_service.NasaAPIAccess import NasaAPIAccess
-from comets.nasa_service.NEOExplorer import NEOExplorer
-from comets.nasa_service.schemas import NasaServiceError, NEOCometDetail
+from comets.nasa_service.abstract_explorer import AbstractExplorer
+from comets.nasa_service.nasa_api_access import NasaAPIAccess
+from comets.nasa_service.neo_explorer import NEOExplorer
+from comets.nasa_service.schemas import NEOCometDetail
+from comets.nasa_service.service_errors import NasaServiceError
 from django.test import TestCase
 
 

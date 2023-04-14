@@ -3,8 +3,8 @@ from datetime import date
 from typing import Any, Dict
 
 from comets.forms import SearchCometForm
-from comets.nasa_service.NEOExplorer import NEOExplorer
-from comets.nasa_service.schemas import NasaServiceError
+from comets.nasa_service.neo_explorer import NEOExplorer
+from comets.nasa_service.service_errors import NasaServiceError
 from django.conf import settings
 from django.views.generic import TemplateView
 

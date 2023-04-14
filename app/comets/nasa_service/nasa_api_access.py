@@ -1,7 +1,7 @@
 from typing import Any, Dict
 
 import requests
-from comets.nasa_service.schemas import NasaServiceError
+from comets.nasa_service.service_errors import NasaServiceError
 
 
 class NasaAPIAccess:

@@ -2,8 +2,8 @@ import logging
 from datetime import date, datetime, timedelta
 from typing import Any, Dict, List
 
-from comets.nasa_service.NEOExplorer import NEOExplorer
-from comets.nasa_service.schemas import NasaServiceError
+from comets.nasa_service.neo_explorer import NEOExplorer
+from comets.nasa_service.service_errors import NasaServiceError
 from django.conf import settings
 from django.views.generic import TemplateView
 
