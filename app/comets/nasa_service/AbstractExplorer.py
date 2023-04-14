@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+
 from comets.nasa_service.NasaAPIAccess import NasaAPIAccess
 
 
@@ -12,12 +13,12 @@ class AbstractExplorer(ABC):
     with a correct level of abstraction and\n
     also that the explorer has no idea of what is the type of data_access he has.
     """
+
     def __init__(self, api_key: str) -> None:
         super().__init__()
         self.data_access = NasaAPIAccess(
             api_key=api_key, api_service=self.get_service_endpoint()
         )
-
 
     @abstractmethod
     def get_service_endpoint(self) -> str:

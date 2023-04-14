@@ -1,3 +1,5 @@
 from .NasaServiceTests import (
-    NasaAPIAccessTests, NEOExplorerTests, AbstractExplorerTests
+    AbstractExplorerTests,
+    NasaAPIAccessTests,
+    NEOExplorerTests,
 )

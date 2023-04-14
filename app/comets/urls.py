@@ -1,6 +1,5 @@
+from comets import converters, views
 from django.urls import path, register_converter
-
-from comets import views, converters
 
 app_name = "comets"
 
@@ -14,11 +13,11 @@ urlpatterns = [
     path(
         "comets/<int:id>/<dateiso:date_ref>/",
         views.CometDetailView.as_view(),
-        name="detail"
+        name="detail",
     ),
     path(
         "comets/<int:id>/<dateiso:date_ref>/<int:n>/",
         views.CometDetailView.as_view(),
-        name="detail"
+        name="detail",
     ),
 ]

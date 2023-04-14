@@ -1,5 +1,5 @@
-from typing import NamedTuple, List
 from datetime import datetime
+from typing import List, NamedTuple
 
 
 class CometCloseApproachData(NamedTuple):
@@ -11,6 +11,7 @@ class CometCloseApproachData(NamedTuple):
         distance (str): in km
         orbiting_body (str): which celestials it's in orbit
     """
+
     time: datetime
     velocity: float
     distance: float
@@ -29,6 +30,7 @@ class NEOCometDetail(NamedTuple):
         close_approaches (List[CometCloseApproachData]): all the times
         the comet approached Earth
     """
+
     id: int
     name: str
     diameter_avg: int

@@ -2,14 +2,11 @@ import logging
 from datetime import date
 from typing import Any, Dict
 
-from django.views.generic import TemplateView
-from django.conf import settings
-
 from comets.forms import SearchCometForm
-
 from comets.nasa_service.NEOExplorer import NEOExplorer
 from comets.nasa_service.schemas import NasaServiceError
-
+from django.conf import settings
+from django.views.generic import TemplateView
 
 logger = logging.getLogger(__name__)
 
@@ -20,6 +17,7 @@ class CometComingView(TemplateView):
     context with data requested from NEO Explorer about today's comets
     to know if the comet is coming.
     """
+
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
         context = super().get_context_data(**kwargs)
 
@@ -30,13 +28,16 @@ class CometComingView(TemplateView):
             )
         except NasaServiceError as exc:
             logger.critical(str(exc))
-            context.update({"error_message": 
-                            "Connection to the Nasa service encountered a problem."})
-
+            context.update(
+                {
+                    "error_message": (
+                        "Connection to the Nasa service encountered a problem."
+                    )
+                }
+            )
 
         context["the_end"] = the_end
         return context
-
 
     def is_the_comet_coming(self, override: bool = False) -> bool:
         if override:
@@ -55,7 +56,6 @@ class CometComingView(TemplateView):
 
 class HomeView(CometComingView):
     template_name = "comets/home.html"
-
 
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
         context = super().get_context_data(**kwargs)
