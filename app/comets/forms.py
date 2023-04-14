@@ -37,5 +37,5 @@ class SearchCometForm(forms.Form):
                 )
         else:
             raise ValidationError(
-                _("Both dates input are required"), code="date_require"
+                _("Both dates input are required"), code="dates_required"
             )

@@ -4,6 +4,7 @@
 
 APP_DIR = ./app
 
+LOAD_ENV_CMD = export `cat .env`
 
 help: ## This help.
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA.Z_-]+:.*?## / {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST) | sort
@@ -11,8 +12,11 @@ help: ## This help.
 
 # Local developpment
 
-local run: ## Run localy server
-	$(APP_DIR)/manage.py runserver
+local-static: ## Setup local static files
+	$(LOAD_ENV_CMD) && mkdir -p $$STATIC_DIR_ROOT && $(APP_DIR)/manage.py collectstatic --noinput
+
+local-run:  ## Run localy server
+	$(LOAD_ENV_CMD) && gunicorn --pythonpath "$(APP_DIR)" app.config.wsgi
 
 # Docker compose commands
 
@@ -47,7 +51,7 @@ lint: ## Run Ruff, a Python linter
 
 
 test: ## Test via Django tester
-	$(APP_DIR)/manage.py test $(APP_DIR)
+	$(LOAD_ENV_CMD) && $(APP_DIR)/manage.py test --parallel "auto" $(APP_DIR)
 
 
 precommit: af l test ## Precommit rules applied : af l test

@@ -14,7 +14,7 @@ WORKDIR /app
 COPY ./app/. ./docker-entrypoint.sh .
 
 # Create dir for static files
-RUN mkdir /data && mkdir /data/staticfiles
+RUN mkdir -p /data/staticfiles
 
 # Run entrypoint script
 ENTRYPOINT [ "bash", "./docker-entrypoint.sh" ]

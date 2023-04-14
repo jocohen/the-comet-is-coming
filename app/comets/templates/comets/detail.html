@@ -1,63 +1,71 @@
 {% extends 'base.html' %}
-{% if comet_loaded is not None %}
-    {% load static %}
-    {% load comets_extras %}
 
-    {% block head %}
+{% block head %}
+    {% load static %}
     <link href="{% static 'comets/css/comet_detail.css' %}" rel="stylesheet" type="text/css">
     <script src="{% static 'comets/js/comet_detail.js' %}"></script>
-    {% endblock head %}
+{% endblock head %}
 
-    {% block content %}
+
+{% block content %}
     <section id="detail-section">
-        <div id="detail-title" class="flex flex-column items-center">
-            <div class="self-center">
-                <h2>Celestial detail of <span class="comet-highlight gradient-text">{{ name }}</span></h2>
-                <a href="{% url 'comets:list' %}">New search</a>
-                <div class="detail-info clearfix">
-                    <div class="col col-4" title="Hazardous">☣️ <span>{{ is_hazardous|yesno:"Yes,No" }}</span></div>
-                    <div class="col col-4" title="Colliding with Earth">☄️ <span>{{ is_sentry|yesno:"Yes,No" }}</span></div>
-                    <div class="col col-4" title="Diameter">🔵 <span>{{ diameter }}m</span></div>
+    {% if comet_loaded %}
+        {% load comets_extras %}
+
+            <div id="detail-title" class="flex flex-column items-center">
+                <div class="self-center">
+                    <h2>Celestial detail of <span class="comet-highlight gradient-text">{{ name }}</span></h2>
+                    <a class="search-link" href="{% url 'comets:list' %}">New search</a>
+                    <div class="detail-info clearfix">
+                        <div class="col col-4" title="Hazardous">☣️ <span>{{ is_hazardous|yesno:"Yes,No" }}</span></div>
+                        <div class="col col-4" title="Colliding with Earth">☄️ <span>{{ is_sentry|yesno:"Yes,No" }}</span></div>
+                        <div class="col col-4" title="Diameter">🔵 <span>{{ diameter }}m</span></div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="panel panel-list">
-            <div class="panel-header">
-                {% if last_approaches|length > 0 %}
-                    <h4>Latest {{ last_approaches|length }} close approaches near Earth prior {{ date_ref|date }}</h4>
-                    <div class="clearfix">
-                        <div class="col col-4">Distance from Earth</div>
-                        <div class="col col-4">Velocity to Earth</div>
-                        <div class="col col-4">When</div>
-                    </div>
-                {% else %}
-                    <h4>No close approaches near Earth registered prior {{ date_ref|date }}</h4>
-                {% endif %}
-            </div>
-            <div class="panel-body">
-                {% for approach in last_approaches %}
-                    <div class="list-row clearfix">
-                        <div class="col col-4">{{ approach.distance|pretty_float }}km</div>
-                        <div class="col col-4">{{ approach.velocity|pretty_float }}km/s</div>
-                        <div class="col col-4">{{ approach.time|time:'H:i' }} {{ approach.time|date }}</div>
-                    </div>
-                {% endfor %}
-            </div>
-            <div class="panel-footer">
-                <div class="flex flex-column items-center">
-                    <div class="self-center">
-                        <input type="hidden" name="base-url" id="base-url" value="{% url 'comets:detail' comet_loaded %}">
-                        <label for="n-approach">Number to search :</label>
-                        <input type="number" name="n-approach" id="n-approach">
-                        <label for="date-reference">prior to :</label>
-                        <input type="date" name="date-reference" id="date-reference">
-                        <div class="btn-block">
-                            <input type="button" value="Load" class="btn" id="search-approach">
+            <div class="panel panel-list">
+                <div class="panel-header">
+                    {% if last_approaches|length > 0 %}
+                        <h4>Latest {{ last_approaches|length }} close approaches near Earth prior {{ date_ref|date }}</h4>
+                        <div class="clearfix">
+                            <div class="col col-4">Distance from Earth</div>
+                            <div class="col col-4">Velocity to Earth</div>
+                            <div class="col col-4">When</div>
+                        </div>
+                    {% else %}
+                        <h4>No close approaches near Earth registered prior {{ date_ref|date }}</h4>
+                    {% endif %}
+                </div>
+                <div class="panel-body">
+                    {% for approach in last_approaches %}
+                        <div class="list-row clearfix">
+                            <div class="col col-4">{{ approach.distance|pretty_float }}km</div>
+                            <div class="col col-4">{{ approach.velocity|pretty_float }}km/s</div>
+                            <div class="col col-4">{{ approach.time|time:'H:i' }} {{ approach.time|date }}</div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="panel-footer">
+                    <div class="flex flex-column items-center">
+                        <div class="self-center">
+                            <input type="hidden" name="base-url" id="base-url" value="{% url 'comets:detail' comet_loaded %}">
+                            <label for="n-approach">Number to search :</label>
+                            <input type="number" name="n-approach" id="n-approach">
+                            <label for="date-reference">prior to :</label>
+                            <input type="date" name="date-reference" id="date-reference">
+                            <div class="btn-block">
+                                <input type="button" value="Load" class="btn" id="search-approach">
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+    {% else %}
+        <div class="flex flex-column items-center mt4">
+            <div class="self-center">
+                <a class="search-link" href="{% url 'comets:list' %}">Back to search</a>
+            </div>
         </div>
+    {% endif %}
     </section>
-    {% endblock content %}
-{% endif %}
+{% endblock content %}

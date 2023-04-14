@@ -45,6 +45,10 @@
 #detail-section {
   padding: 0 3vh;
 }
+#detail-section a {
+  color: white;
+  font-size: 20px;
+}
 #detail-section #detail-title {
   text-align: center;
 }
@@ -59,10 +63,6 @@
   #detail-section #detail-title h2 .comet-highlight {
     font-size: 25px;
   }
-}
-#detail-section #detail-title a {
-  color: white;
-  font-size: 20px;
 }
 #detail-section #detail-title .detail-info {
   margin-top: 4vh;

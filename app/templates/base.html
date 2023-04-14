@@ -19,7 +19,7 @@
         {% endblock content %}
     </main>
     <footer>
-        {% if error_message is not None%}
+        {% if error_message %}
         <div class="error-block block mx-auto">
             <p>{{ error_message }}</p>
         </div>
