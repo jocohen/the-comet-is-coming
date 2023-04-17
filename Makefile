@@ -61,9 +61,9 @@ local-run:  ## Run locally server
 	$(LOAD_ENV_CMD) && gunicorn --pythonpath "$(APP_DIR)" app.config.wsgi
 
 
-sass: ## Watch sass files
+sass: ## Compile sass files
 	sass $(APP_DIR)/static/sass/:$(APP_DIR)/static/css/ \
 	$(APP_DIR)/comets/static/comets/sass/:$(APP_DIR)/comets/static/comets/css/
 
 
-precommit: sass af l local-test ## Precommit rules applied : af l test
+precommit: af l local-test ## Precommit rules applied : af l test
