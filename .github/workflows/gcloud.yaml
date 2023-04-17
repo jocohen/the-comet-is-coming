@@ -1,0 +1,60 @@
+name: Deploy GCP
+on:
+  push:
+    branches:
+      - main
+
+env:
+  IMAGE_NAME: the-comet-is-coming
+  GCE_INSTANCE: the-comet-is-coming
+  GCE_INSTANCE_ZONE: us-west1-b
+
+
+jobs:
+  gcloud_cicd:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: "read"
+      id-token: "write"
+      packages: write
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: "Auth to google cloud"
+      id: "auth"
+      uses: "google-github-actions/auth@v1"
+      with:
+        workload_identity_provider: "projects/606378419130/locations/global/workloadIdentityPools/the-comet-is-coming-main-pool/providers/github-action-provider"
+        service_account: "github-action@the-comet-is-coming.iam.gserviceaccount.com"
+
+    - name: "Set up Cloud SDK"
+      uses: "google-github-actions/setup-gcloud@v1"
+
+    - name: Log in to the Container registry
+      uses: docker/login-action@v2.1.0
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+    - name: Extract metadata (tags, labels) for Docker
+      id: meta
+      uses: docker/metadata-action@v4.3.0
+      with:
+        images: ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}
+
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v4.0.0
+      with:
+        context: .
+        push: true
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
+
+    - name: Deploy
+      run: |-
+        gcloud compute instances update-container "${{ env.GCE_INSTANCE }}" \
+          --zone "${{ env.GCE_INSTANCE_ZONE }}" \
+          --container-image "${{ steps.meta.outputs.tags }}"
